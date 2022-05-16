@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="buttonBarButtonStyle">@style/Alert.Button</item>
+        <item name="android:paddingHorizontal">2dp</item>
+        <item name="titleTextColor">@color/primaryTextColor</item>
+
+    </style>
+</resources>
