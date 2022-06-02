@@ -1,4 +1,4 @@
-package com.zoom.happiestplacesrestaurant.ui.login.data.model;
+package com.zoom.happiestplacesrestaurant.model;
 
 public class Access {
     Boolean dish,orders,check_out;

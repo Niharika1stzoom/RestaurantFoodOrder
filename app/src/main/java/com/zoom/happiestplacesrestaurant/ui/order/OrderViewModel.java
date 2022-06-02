@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.zoom.happiestplacesrestaurant.model.Order;
 import com.zoom.happiestplacesrestaurant.model.Restaurant;
+import com.zoom.happiestplacesrestaurant.repository.OrderRepository;
 
 import java.util.List;
 import java.util.UUID;
@@ -32,17 +33,10 @@ public class OrderViewModel extends AndroidViewModel {
         mContext=application.getApplicationContext();
     }
 
-    public LiveData<Restaurant> getRestaurant() {
-        orderRepository.getRestaurant(mRestaurant);
-        return mRestaurant;
-    }
-
     public void getCurrentOrders(UUID id) {
-        orderRepository.getTodayOrders(id,mOrderList,mContext);
+        orderRepository.getTodayOrders(mOrderList,mContext);
     }
     public LiveData<List<Order>> getOrderList() {
         return mOrderList;
     }
-
-    // TODO: Implement the ViewModel
 }

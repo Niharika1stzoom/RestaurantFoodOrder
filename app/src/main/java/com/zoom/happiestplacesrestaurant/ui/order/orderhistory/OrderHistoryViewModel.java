@@ -7,14 +7,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.zoom.happiestplacesrestaurant.model.Order;
-import com.zoom.happiestplacesrestaurant.model.Restaurant;
-import com.zoom.happiestplacesrestaurant.ui.order.OrderRepository;
+import com.zoom.happiestplacesrestaurant.repository.OrderRepository;
 
 import java.util.List;
-import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -26,7 +23,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
     OrderRepository orderRepository;
     Context mContext;
     MutableLiveData<List<Order>> mOrderList = new MutableLiveData<>();
-
 
     @Inject
     public OrderHistoryViewModel(@NonNull Application application) {

@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,21 +21,14 @@ import android.view.ViewGroup;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.zoom.happiestplacesrestaurant.R;
-import com.zoom.happiestplacesrestaurant.databinding.OrderFragmentBinding;
 import com.zoom.happiestplacesrestaurant.databinding.OrderHistoryFragmentBinding;
-import com.zoom.happiestplacesrestaurant.model.Order;
-import com.zoom.happiestplacesrestaurant.ui.order.OrderRepository;
-import com.zoom.happiestplacesrestaurant.ui.order.OrderViewModel;
-import com.zoom.happiestplacesrestaurant.ui.order.OrdersAdapter;
-import com.zoom.happiestplacesrestaurant.ui.order.display.OrderDisplayViewModel;
+import com.zoom.happiestplacesrestaurant.repository.OrderRepository;
 import com.zoom.happiestplacesrestaurant.util.AppConstants;
 import com.zoom.happiestplacesrestaurant.util.AppUtils;
 import com.zoom.happiestplacesrestaurant.util.DateUtil;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -48,6 +40,7 @@ public class OrderHistoryFragment extends Fragment {
     private OrderHistoryViewModel mViewModel;
     private OrderHistoryAdapter mAdapter;
     LocalBroadcastManager broadcastManager;
+    Date date=Calendar.getInstance().getTime();
     @Inject
     OrderRepository orderRepository;
 
@@ -69,12 +62,10 @@ public class OrderHistoryFragment extends Fragment {
                         .setTitleText("Select date")
                         .build();
                datePicker.show(getParentFragmentManager(),"Select Date");
-
-
                datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
                    @Override
                    public void onPositiveButtonClick(Object selection) {
-                       Date date=new Date(datePicker.getHeaderText());
+                       date=new Date(datePicker.getHeaderText());
                        mViewModel.getOrders(DateUtil.getTodayDate(date));
                        mBinding.dateButton.setText(datePicker.getHeaderText());
                        displayLoader();
@@ -83,8 +74,7 @@ public class OrderHistoryFragment extends Fragment {
             }
         });
         getOrders();
-        Log.d(AppConstants.TAG,DateUtil.getTodayDate(Calendar.getInstance().getTime()));
-        mViewModel.getOrders(DateUtil.getTodayDate(Calendar.getInstance().getTime()));
+        mViewModel.getOrders(DateUtil.getTodayDate(date));
         return mBinding.getRoot();
     }
 
@@ -109,12 +99,7 @@ public class OrderHistoryFragment extends Fragment {
             if (intent != null)
                 if (intent.getAction() != null && intent.getAction().equals(AppConstants.INTENT_ACTION_NEWORDER)) {
                     String orderId = intent.getStringExtra(AppConstants.KEY_ORDER_ID);
-                    //data = new JSONObject(json);
-                    Log.d(AppConstants.TAG, "Received a new order" + orderId);
-                    //TODO:for testing, remove later
-                    //mViewModel.getCurrentOrders(UUID.randomUUID());
-                    mViewModel.getOrders("2022-05-12");
-
+                    mViewModel.getOrders(DateUtil.getTodayDate(date));
                 }
         }
     };
@@ -134,7 +119,6 @@ public class OrderHistoryFragment extends Fragment {
 
     private void getOrders() {
         displayLoader();
-        //TODO:Save restaurant details in menu this has to be done once
         mViewModel.getOrderList()
                 .observe(getViewLifecycleOwner(), orderList -> {
                     hideLoader();
@@ -142,22 +126,22 @@ public class OrderHistoryFragment extends Fragment {
                         if (!AppUtils.isNetworkAvailableAndConnected(getContext()))
                             AppUtils.showSnackbar(getView(), getString(R.string.network_err));
                         displayEmptyView();
-
                     } else {
-
-
+                        hideEmptyView();
                             mAdapter.setList(orderList);
                             if (orderList.size() == 0) {
                                 displayEmptyView();
                             }
                         }
-
                 });
     }
 
     private void hideLoader() {
         mBinding.viewLoader.rootView.setVisibility(View.GONE);
         mBinding.recyclerView.setVisibility(View.VISIBLE);
+    }
+    private void hideEmptyView() {
+        mBinding.viewEmpty.emptyContainer.setVisibility(View.GONE);
     }
 
     private void displayEmptyView() {

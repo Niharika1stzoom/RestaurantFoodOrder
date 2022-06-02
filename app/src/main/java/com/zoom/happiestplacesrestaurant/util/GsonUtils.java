@@ -2,7 +2,6 @@ package com.zoom.happiestplacesrestaurant.util;
 
 import com.google.gson.Gson;
 import com.zoom.happiestplacesrestaurant.model.Restaurant;
-import com.zoom.happiestplacesrestaurant.ui.login.data.model.LoggedInUser;
 
 public class GsonUtils {
 

@@ -18,7 +18,6 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     public String getTabName(int position)
     {
         return TAB_NAMES[position];
-
     }
 
 

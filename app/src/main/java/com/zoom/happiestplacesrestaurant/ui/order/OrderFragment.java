@@ -1,6 +1,5 @@
 package com.zoom.happiestplacesrestaurant.ui.order;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.BroadcastReceiver;
@@ -13,23 +12,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.zoom.happiestplacesrestaurant.R;
-import com.zoom.happiestplacesrestaurant.databinding.FragmentLoginBinding;
 import com.zoom.happiestplacesrestaurant.databinding.OrderFragmentBinding;
 import com.zoom.happiestplacesrestaurant.model.Order;
+import com.zoom.happiestplacesrestaurant.repository.OrderRepository;
 import com.zoom.happiestplacesrestaurant.util.AppConstants;
 import com.zoom.happiestplacesrestaurant.util.AppUtils;
-import com.zoom.happiestplacesrestaurant.util.SharedPrefUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -50,7 +47,6 @@ public class OrderFragment extends Fragment {
     public static Fragment newInstance(UUID mRestId,String status) {
         final OrderFragment fragment = new OrderFragment();
         fragment.setArguments(AppUtils.getBundleForOrderFragment(mRestId,status));
-        Log.d(AppConstants.TAG,"Arg set"+fragment.getArguments().toString());
         return fragment;
     }
 
@@ -60,23 +56,23 @@ public class OrderFragment extends Fragment {
         if(getArguments()!=null && getArguments().containsKey(AppConstants.KEY_RESTAURANT_ID)) {
             mRestId = UUID.fromString(getArguments().getString(AppConstants.KEY_RESTAURANT_ID));
             status=getArguments().getString(AppConstants.KEY_STATUS);
-            Log.d(AppConstants.TAG,"data found in arguments"+mRestId);
         }
-        else
-            Log.d(AppConstants.TAG,"No data found in arguments");
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        //TODO:Put in the home fragment
-
         mViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
         mBinding = OrderFragmentBinding.inflate(inflater, container, false);
         getOrders();
-        mViewModel.getCurrentOrders(mRestId);
-
+        //mViewModel.getCurrentOrders(mRestId);
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mViewModel.getCurrentOrders(mRestId);
     }
 
     @Override
@@ -100,12 +96,7 @@ public class OrderFragment extends Fragment {
             if (intent != null)
                 if (intent.getAction() != null && intent.getAction().equals(AppConstants.INTENT_ACTION_NEWORDER)) {
                     String orderId = intent.getStringExtra(AppConstants.KEY_ORDER_ID);
-                    //data = new JSONObject(json);
-                    Log.d(AppConstants.TAG, "Received a new order" + orderId);
-                    //TODO:for testing, remove later
-                    //mViewModel.getCurrentOrders(UUID.randomUUID());
-                     mViewModel.getCurrentOrders(mRestId);
-
+                    mViewModel.getCurrentOrders(mRestId);
                 }
         }
     };
@@ -124,7 +115,6 @@ public class OrderFragment extends Fragment {
 
     private void getOrders() {
         displayLoader();
-        //TODO:Save restaurant details in menu this has to be done once
         mViewModel.getOrderList()
                 .observe(getViewLifecycleOwner(), orderList -> {
                     hideLoader();
@@ -134,8 +124,7 @@ public class OrderFragment extends Fragment {
                         displayEmptyView();
 
                     } else {
-                        Log.d(AppConstants.TAG, "Refreshed list"+status);
-
+                        hideEmptyView();
                             ArrayList paidList=new ArrayList();
                             ArrayList currentList=new ArrayList();
                             for(Order o:orderList)
@@ -146,12 +135,14 @@ public class OrderFragment extends Fragment {
                                     currentList.add(o);
                             }
                         if(status.equals(AppConstants.Status.Paid.toString())) {
+                            Collections.reverse(paidList);
                             mAdapter.setList(paidList);
                             if(paidList.size()==0){
                                 displayEmptyView();
                             }
                         }
                         else {
+                            Collections.reverse(currentList);
                             mAdapter.setList(currentList);
                             if(currentList.size()==0){
                                 displayEmptyView();
@@ -159,6 +150,10 @@ public class OrderFragment extends Fragment {
                         }
                     }
                 });
+    }
+
+    private void hideEmptyView() {
+        mBinding.viewEmpty.emptyContainer.setVisibility(View.GONE);
     }
 
     private void hideLoader() {
@@ -178,8 +173,10 @@ public class OrderFragment extends Fragment {
     }
 
     private void initRecyclerView() {
+
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter = new OrdersAdapter(getContext(),status,orderRepository);
         mBinding.recyclerView.setAdapter(mAdapter);
+
     }
 }

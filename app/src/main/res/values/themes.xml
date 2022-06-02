@@ -13,6 +13,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="materialAlertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="fontFamily">@font/jura_medium</item>
 
     </style>
     <style name="Widget.FoodOrderRestaurant.Toolbar" parent="Widget.AppCompat.Toolbar">
@@ -20,9 +21,10 @@
         <item name="android:theme">@style/Theme.FoodOrderRestaurant</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
+
     <style name="ThemeOverlay.MaterialComponents.MaterialAlertDialog_Background"
         parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-        <item name="colorOnSurface">@color/primaryTextColor</item>
+        <item name="colorOnSurface">@color/secondaryTextColor</item>
         <item name="titleTextStyle">@style/Alert.Title</item>
     </style>
 

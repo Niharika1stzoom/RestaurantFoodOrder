@@ -1,12 +1,11 @@
 <resources>
-    <string name="app_name">Happiest Places Restaurant</string>
+    <string name="app_name">HP Restaurant</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
@@ -31,4 +30,24 @@
     <string name="orderDisplayFragment">Today\'s Orders</string>
     <string name="orderHistoryFragment">Order History</string>
     <string name="sign_out">Sign Out</string>
+    <string name="logout_err">Unable to Sign Out</string>
+    <string name="feedback">Feedback</string>
+    <string name="select_topic">Select Topic</string>
+    <string name="topic">Topic</string>
+    <string name="describe">Describe your issue</string>
+    <string name="topic_label">Select the topic which best describes your issue:</string>
+    <string name="submit">Submit</string>
+    <string name="issueFragment">Feedback</string>
+    <string name="thankyouFeedback">Thank you for sending us feedback.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="issueEmpty_err">Please describe your issue.</string>
+    <string name="verEmailMsg">We have re sent you a verification email.</string>
+    <string name="confirmEmailMsg">Please verify your email id by clicking on the link sent on email</string>
+    <string name="forget_success">The link to reset your password is sent to your registered email id</string>
+    <string name="email_empty">Enter registered email ID</string>
+    <string name="verMsgTitle">"Your email Id is not verified. A confirmation email has been sent to your email id. Please verify."</string>
+    <string name="resend">Resend Email</string>
+    <string name="refresh">Refresh</string>
+    <string name="emailErr">The email id you entered is incorrect.</string>
 </resources>

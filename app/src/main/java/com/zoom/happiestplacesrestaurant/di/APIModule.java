@@ -1,8 +1,9 @@
 package com.zoom.happiestplacesrestaurant.di;
 
 import com.zoom.happiestplacesrestaurant.network.ApiInterface;
-import com.zoom.happiestplacesrestaurant.ui.login.data.LoginRepository;
-import com.zoom.happiestplacesrestaurant.ui.order.OrderRepository;
+import com.zoom.happiestplacesrestaurant.repository.IssueRepository;
+import com.zoom.happiestplacesrestaurant.repository.LoginRepository;
+import com.zoom.happiestplacesrestaurant.repository.OrderRepository;
 
 import javax.inject.Singleton;
 
@@ -18,7 +19,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class APIModule {
    // String baseURL="https://mocki.io/v1/";
     String baseURL="https://restaurants.happiestplaces.com/api/";
-
 
     @Singleton
     @Provides
@@ -42,5 +42,10 @@ public class APIModule {
     @Provides
     LoginRepository provideLoginRepository(ApiInterface apiInterface){
         return new LoginRepository(apiInterface);
+    }
+
+    @Provides
+    IssueRepository provideIssueRepository(ApiInterface apiInterface){
+        return new IssueRepository(apiInterface);
     }
 }

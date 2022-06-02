@@ -21,5 +21,4 @@ public class OrderDisplayViewModel extends AndroidViewModel {
     public UUID getRestaurantId() {
         return SharedPrefUtils.getUser(mContext).getId();
     }
-    // TODO: Implement the ViewModel
 }

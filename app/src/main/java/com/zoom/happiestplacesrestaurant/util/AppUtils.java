@@ -67,4 +67,7 @@ public class AppUtils {
                 return true;
             return false;
     }
+    public static String getHeaderToken(Context context) {
+        return "Token "+SharedPrefUtils.getUser(context).getToken();
+    }
 }

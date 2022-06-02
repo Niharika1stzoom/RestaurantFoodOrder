@@ -75,7 +75,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:drawablePadding="2dp"
             android:drawableLeft="@drawable/ic_action_money"
-            tools:text="Rs 450" />
+            tools:text="Rs 120.0" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/customer"
@@ -84,7 +84,6 @@
             android:layout_marginLeft="@dimen/margin"
             android:layout_marginRight="@dimen/margin_small"
             android:layout_marginTop="@dimen/margin_small"
-            android:text="By Avinash"
             android:visibility="visible"
             android:textColor="@color/item_color_like"
             android:textSize="@dimen/font_small"

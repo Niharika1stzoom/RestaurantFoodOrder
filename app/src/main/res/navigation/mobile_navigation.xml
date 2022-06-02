@@ -6,7 +6,7 @@
     app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.zoom.happiestplacesrestaurant.ui.login.ui.login.LoginFragment"
+        android:name="com.zoom.happiestplacesrestaurant.ui.login.LoginFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_login" />
     <fragment
@@ -24,4 +24,21 @@
         android:name="com.zoom.happiestplacesrestaurant.ui.order.orderhistory.OrderHistoryFragment"
         android:label="@string/orderHistoryFragment"
         tools:layout="@layout/order_history_fragment" />
+    <fragment
+        android:id="@+id/signOutFragment"
+        android:name="com.zoom.happiestplacesrestaurant.ui.SignOutFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/sign_out_fragment" />
+    <fragment
+        android:id="@+id/issueReportFragment"
+        android:name="com.zoom.happiestplacesrestaurant.ui.issue.IssueReportFragment"
+        android:label="@string/issueFragment"
+        tools:layout="@layout/issue_report_fragment" />
+    <fragment
+        android:id="@+id/verificationFragment"
+        android:name="com.zoom.happiestplacesrestaurant.ui.login.VerificationFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_verification" />
+
+
 </navigation>

@@ -39,7 +39,6 @@ public class OrderDisplayFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        //TODO:Put in the home fragment
 
         mViewModel = new ViewModelProvider(this).get(OrderDisplayViewModel.class);
         mBinding = OrderDisplayFragmentBinding.inflate(inflater, container, false);
@@ -55,11 +54,9 @@ public class OrderDisplayFragment extends Fragment {
                 }else{
                     getActivity().finish();
                 }
-
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
-
         return mBinding.getRoot();
     }
 

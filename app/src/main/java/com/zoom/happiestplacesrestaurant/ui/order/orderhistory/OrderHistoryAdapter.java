@@ -21,7 +21,7 @@ import com.zoom.happiestplacesrestaurant.R;
 import com.zoom.happiestplacesrestaurant.databinding.ListItemOrdersBinding;
 import com.zoom.happiestplacesrestaurant.model.Checkout;
 import com.zoom.happiestplacesrestaurant.model.Order;
-import com.zoom.happiestplacesrestaurant.ui.order.OrderRepository;
+import com.zoom.happiestplacesrestaurant.repository.OrderRepository;
 import com.zoom.happiestplacesrestaurant.util.AppConstants;
 import com.zoom.happiestplacesrestaurant.util.AppUtils;
 import com.zoom.happiestplacesrestaurant.util.DateUtil;
@@ -38,7 +38,6 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         mContext = context;
         orderRepository = repo;
     }
-
 
     @NonNull
     @Override
@@ -77,7 +76,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         }
 
         public void bind(Order orderItem) {
-            //TODO:Add for customer
+
             mBinding.customer.setVisibility(VISIBLE);
             if (orderItem.getCustomer() != null)
                 mBinding.customer.setText("By " + orderItem.getCustomer().getName());
@@ -162,7 +161,6 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
                             String editTextInput = editText.getText().toString();
                             if (editTextInput.length() == 0)
                                 editTextInput = "0";
-                            //TODO:post to the api
                             orderRepository.markStatus(order.getId(), new Checkout(
                                             AppConstants.Status.Paid.toString(),
                                             Integer.parseInt(editTextInput))
@@ -172,7 +170,6 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
                     })
                     .setNegativeButton("Cancel", null)
                     .create();
-
             dialog.show();
         }
     }

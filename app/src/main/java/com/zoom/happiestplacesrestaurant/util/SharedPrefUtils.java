@@ -6,7 +6,6 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
 import com.zoom.happiestplacesrestaurant.model.Restaurant;
-import com.zoom.happiestplacesrestaurant.ui.login.data.model.LoggedInUser;
 
 import java.util.UUID;
 

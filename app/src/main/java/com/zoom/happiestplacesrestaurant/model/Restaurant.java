@@ -1,8 +1,12 @@
 package com.zoom.happiestplacesrestaurant.model;
 
-import com.zoom.happiestplacesrestaurant.ui.login.data.model.Access;
+import android.util.Log;
+
+import com.zoom.happiestplacesrestaurant.util.AppConstants;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Restaurant implements Serializable {
@@ -15,7 +19,10 @@ public class Restaurant implements Serializable {
     Ratings ratings;
     String user_name;
     String user_email;
+    UUID user_id;
     String role;
+    List<String> order_status;
+    Boolean verified;
 
     public UUID getId() {
         return id;
@@ -55,5 +62,53 @@ public class Restaurant implements Serializable {
 
     public String getRole() {
         return role;
+    }
+
+    public List<String> getOrder_status() {
+        return order_status;
+    }
+    public String[] getOrder_statusOwner() {
+        ArrayList<String> sList=new ArrayList<String>();
+        for(String s:order_status)
+        {
+            if(!s.equals(AppConstants.Status.Placed.toString()))
+                sList.add(s);
+
+
+        }
+       String [] sArr=new String[sList.size()];
+        for(int i=0;i<sList.size();i++){
+            sArr[i]=sList.get(i);
+        }
+        return sArr;
+    }
+    public String[] getOrder_statusOthers() {
+        ArrayList<String> sList=new ArrayList<String>();
+        for(String s:order_status)
+        {
+            if(s.equals(AppConstants.Status.Placed.toString()))
+            {
+
+            }else
+            if(!access.getCheck_out() && s.equals(AppConstants.Status.Paid.toString())){
+
+            }
+            else{
+            sList.add(s);
+            }
+        }
+        String [] sArr=new String[sList.size()];
+        for(int i=0;i<sList.size();i++){
+            sArr[i]=sList.get(i);
+        }
+        return sArr;
+    }
+
+    public Boolean getVerified() {
+        return verified;
+    }
+
+    public UUID getUser_id() {
+        return user_id;
     }
 }
